@@ -4,6 +4,7 @@ using System.Linq;
 using Javi.Domain;
 using Javi.DTO;
 using Javi.Infraestructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Javi.Application
 {
@@ -23,12 +24,24 @@ namespace Javi.Application
         }
         private ReadPizzaDTO _createReadPizzaDTO(Pizza pizza)
         {
+           var dto = new ReadPizzaDTO();
+            dto.Id = pizza.Id;
+            dto.Name = pizza.Name;
+            dto.Price = pizza.Price;
+            dto.Ingredients = pizza.PizzaIngredients.Select(
+                pi => _createReadIngredientDTO(pi.Ingredient)
+            ).ToList();
+
+            return dto;
             // a partir de los PizzaIngredients sacar el Ingredient
             // y transformar ese ingredient a ReadIngredientDTO
         }
         private PizzaSummaryDTO _createPizzaSummaryDTO(Pizza pizza)
         {
-
+            var dto = new PizzaSummaryDTO();
+            dto.Id = pizza.Id;
+            dto.Name = pizza.Name;
+            return dto;
         }
         public ICollection<ReadIngredientDTO> GetAllIngredients()
         {
@@ -36,11 +49,17 @@ namespace Javi.Application
         }
         public ReadPizzaDTO GetPizzaById(Guid id)
         {
+           var pizza = _context.Pizza
+                .Include(p => p.PizzaIngredients)
+                .ThenInclude(pi => pi.Ingredient)
+                .SingleOrDefault(p => p.Id == id);
+           
             // buscar la pizza con ese id
             // la transformo de Domain.Pizza a ReadPizzaDTO
         }
         public ICollection<PizzaSummaryDTO> GetAllPizzas()
         {
+            
             // coger todas las pizzas
             // transformarlas a PizzaSummaryDTO
         }
