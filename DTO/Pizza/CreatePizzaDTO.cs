@@ -7,6 +7,5 @@ namespace Javi.DTO
     {
         public string Name { get; set; }
         public ICollection<Guid> Ingredients { get; set; }
-
     }
 }

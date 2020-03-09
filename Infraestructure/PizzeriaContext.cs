@@ -11,9 +11,7 @@ namespace Javi.Infraestructure
         public PizzeriaContext(DbContextOptions<PizzeriaContext> options)
             : base(options)
         {
-
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ingredient>(ingredient =>

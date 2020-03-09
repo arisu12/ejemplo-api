@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Javi.Domain;
@@ -20,13 +21,35 @@ namespace Javi.Application
             dto.Name = ingredient.Name;
             return dto;
         }
-        public ICollection<ReadIngredientDTO> GetAllIngredients()
+        private ReadPizzaDTO _createReadPizzaDTO(Pizza pizza)
+        {
+            // a partir de los PizzaIngredients sacar el Ingredient
+            // y transformar ese ingredient a ReadIngredientDTO
+        }
+        private PizzaSummaryDTO _createPizzaSummaryDTO(Pizza pizza)
         {
 
-            return _context.Ingredient.Select(ingredient => this._createReadIngredientDTO(ingredient)).ToList();
-
-
         }
-
+        public ICollection<ReadIngredientDTO> GetAllIngredients()
+        {
+            return _context.Ingredient.Select(ingredient => this._createReadIngredientDTO(ingredient)).ToList();
+        }
+        public ReadPizzaDTO GetPizzaById(Guid id)
+        {
+            // buscar la pizza con ese id
+            // la transformo de Domain.Pizza a ReadPizzaDTO
+        }
+        public ICollection<PizzaSummaryDTO> GetAllPizzas()
+        {
+            // coger todas las pizzas
+            // transformarlas a PizzaSummaryDTO
+        }
+        public ReadPizzaDTO CreatePizza(CreatePizzaDTO dto)
+        {
+            // crear una pizza con una list de ingredientes vacia
+            // buscar cada ingrediente por su id
+            // con cada Ingredient crear un PizzaIngredient que tenga la pizza
+            // y el ingrediente y a pizza.pizzaIngredients se lo anadimos
+        }
     }
 }

@@ -8,7 +8,5 @@ namespace Javi.Domain
         public Guid IngredientId { get; set; }
         public Pizza Pizza { get; set; }
         public Guid PizzaId { get; set; }
-
     }
-
 }
